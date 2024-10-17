@@ -18,7 +18,15 @@ registrarForm.addEventListener("submit", async(e)=>{
 
         registrarForm.reset();
         mostrarMensaje("Bienvenido "+ userCredential.user.email);
-    }catch{
-        console.log("error");
+    }catch(error){
+        if(error.code === 'auth/invalid-email'){
+            mostrarMensaje("Email inválido","error")
+        }else if(error.code === 'auth/weak-password'){
+            mostrarMensaje("Password muy corto","error")
+        }else if(error.code ==='auth/email-already-in-use'){
+            mostrarMensaje("Email en uso","error")
+        }else if(error.code){
+            mostrarMensaje("Algo salio mal","error")
+        }
     }
 })
